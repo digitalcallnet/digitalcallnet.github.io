@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="az" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigitalCallNet | Cyber-Grade Telecommunications & eKYC Infrastructure</title>
+    <!-- Tailwind CSS v4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Modern Cyber Grid Effect */
+        .bg-cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        .glow-effect {
+            box-shadow: 0 0 50px -10px rgba(6, 182, 212, 0.25);
+        }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(1000%); }
+        }
+        .animate-scan {
+            animation: scanline 8s linear infinite;
+        }
+    </style>
+    <script>
+        const translations = {
+            az: {
+                liveStatus: "SİSTEM STATUSU: OPERATOR MATRIX AKTIVDİR",
+                brandSubtitle: "P2P ZƏNG VƏ MULTI-TENANT eKYC EKOSİSTEMİ",
+                heroTitle: "Gələcəyin Telekommunikasiya Mühəndisliyi",
+                heroDesc: "Fiziki SIM kart asılılığını ləğv edən, biometrik eKYC doğrulama şəbəkəsi və dinamik P2P slot yönləndirməsi ilə təchiz olunmuş yüksək təhlükəsizlikli platforma.",
+                exploreBtn: "Matrisi İncele",
+                docsBtn: "GitHub Core Repo",
+                techTitle: "İstifadə Olunan Texnologiya Steki",
+                techSubtitle: "Müasir proqramlaşdırma arxitekturasının ən güclü alətləri ilə inşa edilmiş milli və qlobal infrastruktura.",
+                featuresTitle: "Kritik Sistem Modulları",
+                feat1Title: "eKYC Biometrik Doğrulama",
+                feat1Desc: "Sənədlərin real vaxt rejimində təhlükəsiz analizi, şəxsiyyət təsdiqi və encrypted token generasiyası.",
+                feat2Title: "Dinamik P2P Call Routing",
+                feat2Desc: "Gələn zənglərin abunəçi nömrəsi əsasında milisaniyələr içində hədəf cihaz slotlarına paylanması.",
+                feat3Title: "Multi-Tenant Slot Engine",
+                feat3Desc: "Birdən çox virtual nömrə və SIM slotunun tək mərkəzdən izolasiya olunmuş idarəedilməsi.",
+                feat4Title: "Zero-Trust Təhlükəsizlik",
+                feat4Desc: "Sanctum tokenləri, HMAC imzaları və WebSockets üzərindən şifrələnmiş məlumat mübadiləsi.",
+                archTitle: "Sistem Memarlığı və Şəbəkə Axını",
+                footerText: "DigitalCallNet Ecosystem. Founder & Lead Engineer tərəfindən idarə olunur."
+            },
+            en: {
+                liveStatus: "SYSTEM STATUS: OPERATOR MATRIX ACTIVE",
+                brandSubtitle: "P2P CALL & MULTI-TENANT eKYC ECOSYSTEM",
+                heroTitle: "Next-Gen Telecommunications Engineering",
+                heroDesc: "A high-security platform eliminating physical SIM dependencies, powered by biometric eKYC verification and dynamic P2P slot routing.",
+                exploreBtn: "Explore Matrix",
+                docsBtn: "GitHub Core Repo",
+                techTitle: "Technology Stack",
+                techSubtitle: "Built with the most advanced engineering stack for high-throughput, low-latency telecommunications.",
+                featuresTitle: "Critical System Modules",
+                feat1Title: "eKYC Biometric Verification",
+                feat1Desc: "Real-time document verification, identity validation, and encrypted token generation.",
+                feat2Title: "Dynamic P2P Call Routing",
+                feat2Desc: "Sub-millisecond routing of incoming calls to target device slots based on subscriber numbers.",
+                feat3Title: "Multi-Tenant Slot Engine",
+                feat3Desc: "Centralized and isolated management of multiple virtual numbers and SIM slots.",
+                feat4Title: "Zero-Trust Security",
+                feat4Desc: "End-to-end data encryption using Sanctum tokens, HMAC signatures, and WebSockets.",
+                archTitle: "System Architecture & Network Flow",
+                footerText: "DigitalCallNet Ecosystem. Managed by Founder & Lead Engineer."
+            },
+            ru: {
+                liveStatus: "СТАТУС СИСТЕМЫ: МАТРИЦА ОПЕРАТОРА АКТИВНА",
+                brandSubtitle: "P2P ЗВОНКИ И MULTI-TENANT eKYC ЭКОСИСТЕМА",
+                heroTitle: "Телекоммуникационная Инженерия Будущего",
+                heroDesc: "Высокозащищенная платформа, устраняющая зависимость от физических SIM-карт, с биометрической eKYC верификацией и P2P маршрутизацией.",
+                exploreBtn: "Исследовать Матрицу",
+                docsBtn: "GitHub Core Repo",
+                techTitle: "Технологический Стек",
+                techSubtitle: "Построено на самых мощных инструментах современной программной архитектуры.",
+                featuresTitle: "Критические Модули Системы",
+                feat1Title: "eKYC Биометрическая Верификация",
+                feat1Desc: "Безопасный анализ документов в реальном времени, подтверждение личности и генерация токенов.",
+                feat2Title: "Динамическая P2P Маршрутизация",
+                feat2Desc: "Маршрутизация входящих вызовов за миллисекунды на целевые слоты устройств.",
+                feat3Title: "Multi-Tenant Управление Слотами",
+                feat3Desc: "Централизованное изолированное управление несколькими виртуальными номерами и SIM-слотами.",
+                feat4Title: "Zero-Trust Безопасность",
+                feat4Desc: "Сквозное шифрование данных с использованием токенов Sanctum, HMAC и WebSockets.",
+                archTitle: "Архитектура Системы и Сетевой Поток",
+                footerText: "DigitalCallNet Ecosystem. Под управлением Founder & Lead Engineer."
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[lang] && translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('bg-cyan-500', 'text-slate-950', 'shadow-cyan-500/50');
+                btn.classList.add('bg-slate-900', 'text-slate-400');
+            });
+            const activeBtn = document.getElementById('btn-' + lang);
+            activeBtn.classList.remove('bg-slate-900', 'text-slate-400');
+            activeBtn.classList.add('bg-cyan-500', 'text-slate-950', 'shadow-cyan-500/50');
+        }
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-cyan-500 selection:text-slate-950 bg-cyber-grid relative overflow-x-hidden">
+
+    <!-- Top Live Status Ticker -->
+    <div class="bg-cyan-950/40 border-b border-cyan-800/30 py-1.5 px-6 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex items-center justify-between text-[11px] font-mono">
+            <div class="flex items-center space-x-3 text-cyan-400">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                </span>
+                <span data-i18n="liveStatus">SİSTEM STATUSU: OPERATOR MATRIX AKTIVDİR</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-6 text-slate-400">
+                <span>LATENCY: <strong class="text-emerald-400">12ms</strong></span>
+                <span>eKYC MESH: <strong class="text-cyan-400 font-bold">READY</strong></span>
+                <span>P2P ROUTING: <strong class="text-cyan-400 font-bold">ENCRYPTED</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Language Switcher -->
+    <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/25">
+                    <i class="fa-solid fa-microchip text-slate-950 text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-500 bg-clip-text text-transparent">DigitalCallNet</span>
+                    <span class="block text-[9px] font-mono text-cyan-500 tracking-widest uppercase">Cyber Infrastructure</span>
+                </div>
+            </div>
+
+            <!-- Language Switcher -->
+            <div class="flex items-center space-x-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
+                <button id="btn-az" onclick="changeLanguage('az')" class="lang-btn px-3 py-1.5 text-xs font-mono font-bold rounded-lg bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/50 transition-all cursor-pointer">AZ</button>
+                <button id="btn-en" onclick="changeLanguage('en')" class="lang-btn px-3 py-1.5 text-xs font-mono font-bold rounded-lg bg-slate-900 text-slate-400 hover:text-white transition-all cursor-pointer">EN</button>
+                <button id="btn-ru" onclick="changeLanguage('ru')" class="lang-btn px-3 py-1.5 text-xs font-mono font-bold rounded-lg bg-slate-900 text-slate-400 hover:text-white transition-all cursor-pointer">RU</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-24 lg:py-32 overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono mb-8 glow-effect">
+                <i class="fa-solid fa-shield-virus"></i>
+                <span data-i18n="brandSubtitle">P2P ZƏNG VƏ MULTI-TENANT eKYC EKOSİSTEMİ</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight mb-8 leading-tight text-white" data-i18n="heroTitle">
+                Gələcəyin Telekommunikasiya Mühəndisliyi
+            </h1>
+            
+            <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed" data-i18n="heroDesc">
+                Fiziki SIM kart asılılığını ləğv edən, biometrik eKYC doğrulama şəbəkəsi və dinamik P2P slot yönləndirməsi ilə təchiz olunmuş yüksək təhlükəsizlikli platforma.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-5">
+                <a href="#tech-stack" class="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold rounded-xl transition-all shadow-xl shadow-cyan-500/30 flex items-center space-x-3 group">
+                    <span data-i18n="exploreBtn">Matrisi İncele</span>
+                    <i class="fa-solid fa-arrow-right-long group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="https://github.com/digitalcallnet" target="_blank" class="px-8 py-4 bg-slate-900/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 font-bold rounded-xl transition-all flex items-center space-x-3">
+                    <i class="fa-brands fa-github text-xl"></i>
+                    <span data-i18n="docsBtn">GitHub Core Repo</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Highlight Section -->
+    <section id="tech-stack" class="py-20 border-t border-slate-900 bg-slate-950/70">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl font-black text-white tracking-tight mb-4" data-i18n="techTitle">İstifadə Olunan Texnologiya Steki</h2>
+                <p class="text-slate-400 text-sm" data-i18n="techSubtitle">Müasir proqramlaşdırma arxitekturasının ən güclü alətləri ilə inşa edilmiş milli və qlobal infrastruktura.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tech 1: Laravel -->
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-red-500/50 transition-all">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-brands fa-laravel"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Laravel 11 & Sanctum</h3>
+                            <span class="text-xs font-mono text-red-400">Backend API Engine</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">Multi-Tenant RESTful API mimarisi, eKYC şifrələnmiş məlumat bazası, token əsaslı autentifikasiya və WebSockets dəstəyi.</p>
+                </div>
+
+                <!-- Tech 2: Rust & Tauri -->
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-amber-500/50 transition-all">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-brands fa-rust"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Rust & Tauri v2</h3>
+                            <span class="text-xs font-mono text-amber-400">Native Kiosk & Terminal</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">Aşağı resurs sərfiyyatı ilə çalışan, ultra-sürətli desktop idarəetmə kiyoskləri və aparat səviyyəsində şəbəkə yönləndirmə modulları.</p>
+                </div>
+
+                <!-- Tech 3: Flutter -->
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-sky-500/50 transition-all">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Flutter & GetX</h3>
+                            <span class="text-xs font-mono text-sky-400">Cross-Platform Mobile App</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">GetX dövlət idarəetməsi, Dio HTTP klient, offline-first Hive/GetStorage və birbaşa qida mənbəyi inteqrasiyası ilə mobil interfeys.</p>
+                </div>
+
+                <!-- Tech 4: SvelteKit -->
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-orange-500/50 transition-all">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">SvelteKit & Svelte 5</h3>
+                            <span class="text-xs font-mono text-orange-400">Web Portals & Admin Dashboard</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">Svelte 5 Runes və Tailwind CSS v4 ilə hazırlanmış, milisaniyəlik reaksiya verən ultra-yüngül idarəetmə panelləri.</p>
+                </div>
+
+                <!-- Tech 5: Node.js & WebSockets -->
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-emerald-500/50 transition-all">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-brands fa-node-js"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Node.js & WebSockets</h3>
+                            <span class="text-xs font-mono text-emerald-400">Real-Time Telemetry Bridge</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">Canlı məlumat axını, cihaz statuslarının sinxronizasiyası və biometric telemetriya ötürülməsi üçün yüksək performanslı körpü.</p>
+                </div>
+
+                <!-- Tech 6: Database & Storage -->
+                <div class="p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 transition-all">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-2xl font-bold">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">PostgreSQL / SQLite</h3>
+                            <span class="text-xs font-mono text-cyan-400">Distributed Data Layer</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">Lokal offline sinxronizasiya, yüksək təhlükəsizlikli relational schema və şifrələnmiş istifadəçi slot qeydləri.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Feature Modules -->
+    <section class="py-24 border-t border-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-black text-white tracking-tight mb-4" data-i18n="featuresTitle">Kritik Sistem Modulları</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-cyan-500 to-blue-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-8 rounded-2xl bg-slate-900/30 border border-slate-800/80 hover:border-cyan-500/40 transition-all">
+                    <i class="fa-solid fa-passport text-3xl text-cyan-400 mb-6"></i>
+                    <h3 class="text-lg font-bold text-white mb-3" data-i18n="feat1Title">eKYC Biometrik Doğrulama</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed" data-i18n="feat1Desc">Sənədlərin real vaxt rejimində təhlükəsiz analizi, şəxsiyyət təsdiqi və encrypted token generasiyası.</p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-slate-900/30 border border-slate-800/80 hover:border-cyan-500/40 transition-all">
+                    <i class="fa-solid fa-network-wired text-3xl text-cyan-400 mb-6"></i>
+                    <h3 class="text-lg font-bold text-white mb-3" data-i18n="feat2Title">Dinamik P2P Call Routing</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed" data-i18n="feat2Desc">Gələn zənglərin abunəçi nömrəsi əsasında milisaniyələr içində hədəf cihaz slotlarına paylanması.</p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-slate-900/30 border border-slate-800/80 hover:border-cyan-500/40 transition-all">
+                    <i class="fa-solid fa-sliders text-3xl text-cyan-400 mb-6"></i>
+                    <h3 class="text-lg font-bold text-white mb-3" data-i18n="feat3Title">Multi-Tenant Slot Engine</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed" data-i18n="feat3Desc">Birdən çox virtual nömrə və SIM slotunun tək mərkəzdən izolasiya olunmuş idarəedilməsi.</p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-slate-900/30 border border-slate-800/80 hover:border-cyan-500/40 transition-all">
+                    <i class="fa-solid fa-user-shield text-3xl text-cyan-400 mb-6"></i>
+                    <h3 class="text-lg font-bold text-white mb-3" data-i18n="feat4Title">Zero-Trust Təhlükəsizlik</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed" data-i18n="feat4Desc">Sanctum tokenləri, HMAC imzaları və WebSockets üzərindən şifrələnmiş məlumat mübadiləsi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 py-12 bg-slate-950/90 font-mono text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between">
+            <div class="flex items-center space-x-3 mb-4 sm:mb-0">
+                <span class="text-slate-300 font-bold text-sm">DigitalCallNet</span>
+                <span>//</span>
+                <span class="text-cyan-500">v1.0.0-PROD</span>
+            </div>
+            <p data-i18n="footerText">DigitalCallNet Ecosystem. Founder & Lead Engineer tərəfindən idarə olunur.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
